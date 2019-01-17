@@ -6,9 +6,9 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('recipes').insert([
-        {name: 'pan pizza', description: 'a pan pizza'},
-        {name: 'fresh taco', description: 'the FRESHEST taco'},
-        {name: 'bean stew', description: 'not spicy beans'}
+        {name: 'pan pizza', description: 'a pan pizza', dishId: 1},
+        {name: 'fresh taco', description: 'the FRESHEST taco', dishId: 2},
+        {name: 'bean stew', description: 'not spicy beans', dishId: 3}
       ]);
     });
 };
