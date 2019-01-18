@@ -40,6 +40,23 @@ const addRecipe = (req, res) => {
     return db('recipes').insert(req.body);
 }
 
+const getInstructions = (id) => {
+    const recipe = db('recipes')
+        .where({ id : id });
+
+    const instructions = db('instructions as i')
+        .select('i.instruction')
+        .where({ 'i.recipeId' : id })
+
+    return Promise
+        .all([recipe, instructions])
+        .then(results => {
+            console.log(results);
+            let [recipe, instructions] = results;
+            return { recipe: recipe[0].name, instructions: instructions };
+        })
+}
+
 const getShoppingList = (id) => {
     const recipe = db('recipes')
         .where({ id : id });
@@ -63,4 +80,13 @@ const getShoppingList = (id) => {
         })
 }
 
-module.exports = { getRecipeIngredients, getDishes, addDish, getDish, getRecipes, addRecipe, getShoppingList };
+module.exports = { 
+    getRecipeIngredients, 
+    getDishes, 
+    addDish, 
+    getDish, 
+    getRecipes, 
+    addRecipe,
+    getInstructions,
+    getShoppingList 
+};

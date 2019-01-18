@@ -52,6 +52,16 @@ server.post(`/api/dishes`, (req, res) => {
         });
 })
 
+server.get(`/api/recipes/:id/instructions`, (req, res) => {
+    helpers.getInstructions(req.params.id)
+        .then(instructions => {
+            res.status(200).json(instructions);
+        })
+        .catch(error => {
+            res.status(500).json(error);
+        });
+})
+
 server.get(`/api/recipes/:id/shopping-list`, (req, res) => {
     helpers.getShoppingList(req.params.id)
         .then(shoppingList => {
