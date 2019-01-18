@@ -1,11 +1,20 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('RecipeIngredients', table => {
-      table.integer('recipeId').references('recipes.id');
-      table.integer('ingredientId').references('ingredients.id');
+  return knex.schema.createTable('recipeIngredients', table => {
+    table.increments();
+    table
+      .integer('recipeId')
+      .unsigned()
+      .references('id')
+      .inTable('recipes');
+    table
+      .integer('ingredientId')
+      .unsigned()
+      .references('id')
+      .inTable('ingredients');
   })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('RecipeIngredients');
+  return knex.schema.dropTableIfExists('recipeIngredients');
 };
